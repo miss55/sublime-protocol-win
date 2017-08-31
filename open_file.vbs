@@ -10,14 +10,26 @@ Dim sublime_path
 '   much slower than opening directly with sublime
 
 ' >>> EDIT THIS PATH TO MATCH YOUR SUBLIME INSTALL PATH / OR PATH TO SUBLIME PORTABLE <<<
-sublime_path = "C:\Program Files (x86)\Sublime Text 3\sublime_text.exe"
+sublime_path = "D:\wenyisong\program\sublime\sublime_text.exe"
 
-Dim text, decoded
+Dim text, decoded, projects_basepath, projects_path_alias
 ' get first command line argument
 text         = WScript.Arguments.Item(0)
 
+' In case your file is mapped via a network share and paths do not match.
+' eg. /var/www will can replaced with Y:/
+projects_basepath = ""
+projects_path_alias = ""
+
 ' decode URL
+If projects_basepath <> "" Then
+  text = Replace(text, projects_basepath, projects_path_alias)
+End If
+
 decoded      = URLDecode(text)
+
+' Msgbox decoded
+
 
 Dim get_params, params
 ' Split 
